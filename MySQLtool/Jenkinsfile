@@ -4,10 +4,10 @@ pipeline{
         ansible 'ansible'
     }
     environment {
-                TERRA_PATH = "${WORKSPACE}/Mysql-Infra"
-                ANSIBLE_PLAY_CR_PATH = "${WORKSPACE}/Mysql-Rool/Mysql.yml"
-                ANSIBLE_PLAY_DT_PATH = "${WORKSPACE}/Mysql-Rool/deletedata.yml"
-                ANSIBLE_INVENTORY = "${WORKSPACE}/Mysql-Rool/aws_ec2.yml"
+                TERRA_PATH = "${WORKSPACE}/region/Mysql-Infra"
+                ANSIBLE_PLAY_CR_PATH = "${WORKSPACE}/region/Mysql-Rool/Mysql.yml"
+                ANSIBLE_PLAY_DT_PATH = "${WORKSPACE}/region/Mysql-Rool/deletedata.yml"
+                ANSIBLE_INVENTORY = "${WORKSPACE}/region/Mysql-Rool/aws_ec2.yml"
             }
     parameters {
         choice(name: 'action', choices: ['apply', 'destroy'], description: 'choices one option for create/destroy infra')
@@ -17,7 +17,7 @@ pipeline{
     stages {
         stage ('git_clone'){
             steps {
-                git branch: 'main', url: 'https://github.com/aayushverma19/MySQL-TooL.git'
+                git branch: 'main', url: 'https://github.com/aayushverma191/region.git'
             }
         }
         stage ('user_approval') {
