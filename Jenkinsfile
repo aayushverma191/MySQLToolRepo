@@ -4,8 +4,8 @@ pipeline{
         ansible 'ansible'
     }
     environment {
-                TERRA_PATH = "${WORKSPACE}/MySQLtool/Mysql-Infra"
-                ANSIBLE_PLAY_CR_PATH = "${WORKSPACE}/MySQLtool/Mysql-Rool/Mysql.yml"
+                TERRAFORM_DIR_PATH = "${WORKSPACE}/MySQLtool/Mysql-Infra"
+                ANSIBLE_PLAY_CR_PATH = "${WORKSPACE}/MySQLtool/Mysql-Rool/Mysql.yml" 
                 ANSIBLE_PLAY_DT_PATH = "${WORKSPACE}/MySQLtool/Mysql-Rool/deletedata.yml"
                 ANSIBLE_INVENTORY = "${WORKSPACE}/MySQLtool/Mysql-Rool/aws_ec2.yml"
             }
@@ -25,7 +25,7 @@ pipeline{
                   expression { params.table != 'delete' || params.action == 'destroy' }
               }
             steps {
-                sh 'terraform -chdir=${TERRA_PATH} init'
+                sh 'terraform -chdir=${TERRAFORM_DIR_PATH} init'
             }
         }
         stage ('terraform validate') {
@@ -33,7 +33,7 @@ pipeline{
                   expression {  params.table != 'delete' || params.action == 'destroy' }
             }
             steps {
-                sh 'terraform -chdir=${TERRA_PATH} validate'
+                sh 'terraform -chdir=${TERRAFORM_DIR_PATH} validate'
             }
         }
         stage ('terraform plan') {
@@ -41,7 +41,7 @@ pipeline{
                   expression {  params.table != 'delete' || params.action == 'destroy' }
             }
             steps {
-                sh 'terraform -chdir=${TERRA_PATH} plan'
+                sh 'terraform -chdir=${TERRAFORM_DIR_PATH} plan'
             }
         }
         stage ('approval apply') {
@@ -57,7 +57,7 @@ pipeline{
                  expression { params.action == 'apply' && params.table != 'delete' }
             }
             steps {
-                sh 'terraform -chdir=${TERRA_PATH} apply --auto-approve'
+                sh 'terraform -chdir=${TERRAFORM_DIR_PATH} apply --auto-approve'
             }
         }
         stage ('approval destroy') {
@@ -73,7 +73,7 @@ pipeline{
                   expression { params.action == 'destroy'  || ( params.table != 'delete' && params.table != 'create' )}
             }
             steps {
-                sh 'terraform -chdir=${TERRA_PATH} destroy --auto-approve'
+                sh 'terraform -chdir=${TERRAFORM_DIR_PATH} destroy --auto-approve'
             }
         }
         stage("Install_MySQL_Create-Table") {
