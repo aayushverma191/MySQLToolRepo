@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
     bucket         = "ninja-tool"
-    key            = "east.tfstate"
+    key            = "terraform.tfstate"
     region         = "eu-north-1"
-    dynamodb_table = "abc-tool"
+    dynamodb_table = "terraform-lock"
     encrypt        = true
   }
 }
