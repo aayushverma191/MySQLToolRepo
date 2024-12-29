@@ -2,9 +2,9 @@
 # vars file for tool
 
 db_user: mysqluser
-db_pass: user1234
+db_pass: user123
 db_name: Devops_Batch_Details
-table_name: Batch_Details
+table_name: Ninja_Details
 
 mysql_vars:
       Debian:
