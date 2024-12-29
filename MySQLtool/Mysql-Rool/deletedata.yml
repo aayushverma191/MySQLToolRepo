@@ -4,9 +4,9 @@
   become: true
   vars:
     db_user: mysqluser
-    db_pass: user1234
-    db_name: school
-    table_name: student   
+    db_pass: user123
+    db_name: Devops_Batch_Details
+    table_name: Ninja_Details   
   tasks:
      - name: Delete the table
        community.mysql.mysql_query:
