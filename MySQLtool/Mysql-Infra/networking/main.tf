@@ -65,7 +65,7 @@ resource "aws_eip" "NAT_eip" {
 }
 
 #nat gateway
-resource "aws_nat_gateway" "gw" {
+resource "aws_nat_gateway" "natgw" {
   allocation_id = aws_eip.NAT_eip.id
   subnet_id     = aws_subnet.public-subnet.id
 
@@ -106,7 +106,7 @@ resource "aws_route_table" "pvt" {
 
   route {
     cidr_block = var.RT-cidr_block
-    gateway_id = aws_nat_gateway.gw.id
+    gateway_id = aws_nat_gateway.natgw.id
   }
   route {
     cidr_block = var.vpc_cidr
