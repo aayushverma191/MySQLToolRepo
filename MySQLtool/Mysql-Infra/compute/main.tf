@@ -85,7 +85,7 @@ resource "aws_lb_target_group_attachment" "tg_attachment_private_instance2" {
 }
 
 # ########################################################################################
-# ##  Auto Load Balancer
+# ## Load Balancer
 # #######################################################################################
 
 resource "aws_lb" "MySQL-alb" {
@@ -105,7 +105,7 @@ resource "aws_lb" "MySQL-alb" {
 
 
 # ##################################################################################
-# ##  Auto Load Balancer listner
+# ## Load Balancer listner
 # ##################################################################################
 
 resource "aws_lb_listener" "mysql_alb_listener" {
