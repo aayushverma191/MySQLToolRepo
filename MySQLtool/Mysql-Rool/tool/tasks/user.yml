@@ -1,5 +1,5 @@
 ---
-- name: Creating MySQL user (medium_post)
+- name: Creating MySQL user
   community.mysql.mysql_user:  
     name: "{{ db_user }}"  
     password: "{{ db_pass }}"
