@@ -1,0 +1,85 @@
+node {
+    def TERRAFORM_DIR_PATH = "${env.WORKSPACE}/MySQLtool/Mysql-Infra"
+    def ANSIBLE_PLAY_CR_PATH = "${env.WORKSPACE}/MySQLtool/Mysql-Rool/Mysql.yml"
+    def ANSIBLE_PLAY_DT_PATH = "${env.WORKSPACE}/MySQLtool/Mysql-Rool/deletedata.yml"
+    def ANSIBLE_INVENTORY = "${env.WORKSPACE}/MySQLtool/Mysql-Rool/aws_ec2.yml"
+
+    properties([
+        parameters([
+            choice(name: 'action', choices: ['apply', 'destroy'], description: 'Terraform action: apply or destroy'),
+            choice(name: 'table', choices: ['create', 'delete'], description: 'MySQL table: create or delete')
+        ])
+    ])
+
+    try {
+        stage('Clone Repository') {
+            git branch: 'main', credentialsId: 'b216bd27-d3a6-419f-ae38-f2119fa95a6f', 
+            url: 'https://github.com/aayushverma191/region.git'
+        }
+
+        if (params.table != 'delete' || params.action == 'destroy') {
+            stage('Initialize Terraform') {
+                sh "terraform -chdir=${TERRAFORM_DIR_PATH} init"
+            }
+
+            stage('Validate Terraform Configuration') {
+                sh "terraform -chdir=${TERRAFORM_DIR_PATH} validate"
+            }
+
+            stage('Generate Terraform Plan') {
+                sh "terraform -chdir=${TERRAFORM_DIR_PATH} plan"
+            }
+        }
+
+        if (params.action == 'apply' && params.table != 'delete') {
+            stage('Approval for Apply Action') {
+                input message: 'Approval for infrastructure apply', ok: 'Approved'
+            }
+
+            stage('Apply Terraform Changes') {
+                sh "terraform -chdir=${TERRAFORM_DIR_PATH} apply --auto-approve"
+            }
+        }
+
+        if (params.action == 'destroy' || (params.table != 'delete' && params.table != 'create')) {
+            stage('Approval for Destroy Action') {
+                input message: 'Approval for infrastructure destroy', ok: 'Approved'
+            }
+
+            stage('Destroy Terraform Resources') {
+                sh "terraform -chdir=${TERRAFORM_DIR_PATH} destroy --auto-approve"
+            }
+        }
+
+        if (params.table == 'create' && params.action == 'apply') {
+            stage('Install MySQL and Create Table') {
+                ansiblePlaybook credentialsId: '98a085ea-0055-4363-9382-81b2371ec021', disableHostKeyChecking: true, installation: 'ansible',
+                inventory: "${ANSIBLE_INVENTORY}", playbook: "${ANSIBLE_PLAY_CR_PATH}"
+            }
+        }
+
+        if (params.table == 'delete' && params.action == 'apply') {
+            stage('Approval for Delete Table') {
+                input message: 'Approval for table delete', ok: 'Approved'
+            }
+
+            stage('Delete MySQL Table') {
+                ansiblePlaybook credentialsId: '98a085ea-0055-4363-9382-81b2371ec021', disableHostKeyChecking: true, installation: 'ansible',
+                inventory: "${ANSIBLE_INVENTORY}", playbook: "${ANSIBLE_PLAY_DT_PATH}"
+            }
+        }
+    } catch (Exception e) {
+        slackSend(channel: 'info', message: "FAILURE: The build process encountered an issue. Job Details - Name: ${env.JOB_NAME}, Build Number: ${env.BUILD_NUMBER}, URL: ${env.BUILD_URL}")
+        throw e
+    } finally {
+        script {
+            if (params.table == 'create' && params.action == 'apply') {
+                slackSend(channel: 'info', message: "Deployment Successful: Installed MySQL & table has been created successfully. Job Details - Name: ${env.JOB_NAME}, Build Number: ${env.BUILD_NUMBER}, URL: ${env.BUILD_URL}")
+            } else if (params.action == 'destroy' || (params.table != 'delete' && params.table != 'create')) {
+                slackSend(channel: 'info', message: "Destroy Successful: Infrastructure destruction completed successfully. Job Details - Name: ${env.JOB_NAME}, Build Number: ${env.BUILD_NUMBER}, URL: ${env.BUILD_URL}")
+            } else if (params.table == 'delete' && params.action == 'apply') {
+                slackSend(channel: 'info', message: "Delete Table Successful: The specified MySQL table has been deleted successfully. Job Details - Name: ${env.JOB_NAME}, Build Number: ${env.BUILD_NUMBER}, URL: ${env.BUILD_URL}")
+            }
+        }
+    }
+}
