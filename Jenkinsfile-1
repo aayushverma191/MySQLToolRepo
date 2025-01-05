@@ -1,8 +1,8 @@
 node {
-    def TERRAFORM_DIR_PATH = "${env.WORKSPACE}/MySQLtool/Mysql-Infra"
-    def ANSIBLE_PLAY_CR_PATH = "${env.WORKSPACE}/MySQLtool/Mysql-Rool/Mysql.yml"
-    def ANSIBLE_PLAY_DT_PATH = "${env.WORKSPACE}/MySQLtool/Mysql-Rool/deletedata.yml"
-    def ANSIBLE_INVENTORY = "${env.WORKSPACE}/MySQLtool/Mysql-Rool/aws_ec2.yml"
+    TERRAFORM_DIR_PATH = "${env.WORKSPACE}/MySQLtool/Mysql-Infra"
+    ANSIBLE_PLAY_CR_PATH = "${env.WORKSPACE}/MySQLtool/Mysql-Rool/Mysql.yml"
+    ANSIBLE_PLAY_DT_PATH = "${env.WORKSPACE}/MySQLtool/Mysql-Rool/deletedata.yml"
+    ANSIBLE_INVENTORY = "${env.WORKSPACE}/MySQLtool/Mysql-Rool/aws_ec2.yml"
 
     properties([
         parameters([
