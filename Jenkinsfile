@@ -87,16 +87,16 @@ pipeline {
         success {
             script {
                 if (params.table == 'create' && params.action == 'apply') {
-                    slackSend(channel: 'info', message: "Deployment Successful: Installed MySQL & table has been created successfully. Job Details - Name: ${JOB_NAME}, Build Number: ${BUILD_NUMBER}, URL: ${BUILD_URL}")
+                    slackSend(channel: 'tool_notification', message: "Deployment Successful: Installed MySQL & table has been created successfully. Job Details - Name: ${JOB_NAME}, Build Number: ${BUILD_NUMBER}, URL: ${BUILD_URL}")
                 } else if (params.action == 'destroy' || (params.table != 'delete' && params.table != 'create')) {
-                    slackSend(channel: 'info', message: "Destroy Successful: Infrastructure destruction completed successfully. Job Details - Name: ${JOB_NAME}, Build Number: ${BUILD_NUMBER}, URL: ${BUILD_URL}")
+                    slackSend(channel: 'tool_notification', message: "Destroy Successful: Infrastructure destruction completed successfully. Job Details - Name: ${JOB_NAME}, Build Number: ${BUILD_NUMBER}, URL: ${BUILD_URL}")
                 } else if (params.table == 'delete' && params.action == 'apply') {
-                    slackSend(channel: 'info', message: "Delete Table Successful: The specified MySQL table has been deleted successfully. Job Details - Name: ${JOB_NAME}, Build Number: ${BUILD_NUMBER}, URL: ${BUILD_URL}")
+                    slackSend(channel: 'tool_notification', message: "Delete Table Successful: The specified MySQL table has been deleted successfully. Job Details - Name: ${JOB_NAME}, Build Number: ${BUILD_NUMBER}, URL: ${BUILD_URL}")
                 }
             }
         }
         failure {
-            slackSend(channel: 'info', message: "FAILURE: The build process encountered an issue. Job Details - Name: ${JOB_NAME}, Build Number: ${BUILD_NUMBER}, URL: ${BUILD_URL}")
+            slackSend(channel: 'tool_notification', message: "FAILURE: The build process encountered an issue. Job Details - Name: ${JOB_NAME}, Build Number: ${BUILD_NUMBER}, URL: ${BUILD_URL}")
         }
     }
 }
