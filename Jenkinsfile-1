@@ -64,7 +64,7 @@ node {
             }
 
             stage('Delete MySQL Table') {
-                ansiblePlaybook credentialsId: 'pem-file', disableHostKeyChecking: true, installation: 'ansible',
+                ansiblePlaybook credentialsId: 'pem-key', disableHostKeyChecking: true, installation: 'ansible',
                 inventory: "${ANSIBLE_INVENTORY}", playbook: "${ANSIBLE_PLAY_DT_PATH}"
             }
         }
