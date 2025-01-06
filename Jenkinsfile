@@ -16,7 +16,7 @@ pipeline {
     stages {
         stage ('Clone Repository') {
             steps {
-                git branch: 'main', credentialsId: 'b216bd27-d3a6-419f-ae38-f2119fa95a6f', 
+                git branch: 'main', credentialsId: 'git-password', 
                 url: 'https://github.com/aayushverma191/MySQLToolRepo.git'
             }
         }
