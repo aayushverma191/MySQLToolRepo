@@ -17,7 +17,7 @@ pipeline {
         stage ('Clone Repository') {
             steps {
                 git branch: 'main', credentialsId: 'b216bd27-d3a6-419f-ae38-f2119fa95a6f', 
-                url: 'https://github.com/aayushverma191/region.git'
+                url: 'https://github.com/aayushverma191/MySQLToolRepo.git'
             }
         }
         stage ('Initialize Terraform') {
