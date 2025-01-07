@@ -78,7 +78,7 @@ pipeline {
         stage ('Delete MySQL Table') {
             when { expression { params.table == 'delete' && params.action == 'apply' } }
             steps {
-                ansiblePlaybook credentialsId: 'pem-key', disableHostKeyChecking: true, installation: 'ansible',
+                ansiblePlaybook credentialsId: '61506ddf-2d47-4fbb-8087-d7a360b7cb9e', disableHostKeyChecking: true, installation: 'ansible',
                 inventory: "${ANSIBLE_INVENTORY}", playbook: "${ANSIBLE_PLAY_DT_PATH}"
             }
         }
