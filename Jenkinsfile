@@ -44,7 +44,7 @@ pipeline {
                 input message: 'Approval for infrastructure apply', ok: 'Approved'
             }
         }
-        stage ('Apply Terraform Changes') {
+        stage ('Terraform Apply ') {
             when { expression { params.action == 'apply' && params.table != 'delete' } }
             steps {
                 sh "terraform -chdir=${TERRAFORM_DIR_PATH} apply --auto-approve"
@@ -56,7 +56,7 @@ pipeline {
                 input message: 'Approval for infrastructure destroy', ok: 'Approved'
             }
         }
-        stage ('Destroy Terraform Resources') {
+        stage ('Terraform Destroy Resources') {
             when { expression { params.action == 'destroy' || (params.table != 'delete' && params.table != 'create') } }
             steps {
                 sh "terraform -chdir=${TERRAFORM_DIR_PATH} destroy --auto-approve"
