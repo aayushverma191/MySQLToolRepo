@@ -1,4 +1,4 @@
-# Automate setup and deploy MySQL Database server using GitHub Jenkins, Terraform and Ansible
+# Automate setup and deploy MySQL Database server using GitHub, Jenkins, Terraform and Ansible
 
 * Firstly get the code from GitHub.
 * Second create infrastructure using Terraform on AWS cloud.
