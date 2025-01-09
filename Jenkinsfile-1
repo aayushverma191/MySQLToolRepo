@@ -36,7 +36,7 @@ node {
                 input message: 'Approval for infrastructure apply', ok: 'Approved'
             }
 
-            stage('Apply Terraform Changes') {
+            stage('Terraform Apply') {
                 sh "terraform -chdir=${TERRAFORM_DIR_PATH} apply --auto-approve"
             }
         }
@@ -46,7 +46,7 @@ node {
                 input message: 'Approval for infrastructure destroy', ok: 'Approved'
             }
 
-            stage('Destroy Terraform Resources') {
+            stage('Terraform Destroy Resources') {
                 sh "terraform -chdir=${TERRAFORM_DIR_PATH} destroy --auto-approve"
             }
         }
