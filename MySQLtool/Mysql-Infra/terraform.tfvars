@@ -1,7 +1,7 @@
 # Networking Variables
 region_name         = "eu-north-1"
 vpc_name            = "MySQL-VPC"
-vpc_cidr            = "10.0.0.0/16"
+vpc_cidr            = "10.0.0.0/21"
 dns_support         = true
 dns_hostnames       = true
 pub_sub_name        = "public-subnet"
