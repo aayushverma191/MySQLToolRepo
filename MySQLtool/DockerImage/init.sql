@@ -9,7 +9,7 @@ CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    product_id INT(10) NOT NULL UNIQUE,
+    product_id INT(10) NOT NULL,
     product_name VARCHAR(50) NOT NULL,
     price DECIMAL(10, 2) NOT NULL
 );
