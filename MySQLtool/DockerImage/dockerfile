@@ -2,11 +2,11 @@
 FROM mysql:8.0
 
 # Copy environment variables from the .env file
-ARG MYSQL_ROOT_PASSWORD
-ARG MYSQL_DATABASE
-ARG MYSQL_USER
-ARG MYSQL_PASSWORD
 
+ENV MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
+    MYSQL_DATABASE=$MYSQL_DATABASE \
+    MYSQL_USER=$MYSQL_USER \
+    MYSQL_PASSWORD=$MYSQL_PASSWORD
 
 # Copy initialization SQL scripts (optional)
 COPY ./init.sql /docker-entrypoint-initdb.d/
