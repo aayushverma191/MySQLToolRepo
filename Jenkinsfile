@@ -1,8 +1,6 @@
 pipeline {
     agent any
-    tools {
-        ansible 'ansible'
-    }
+    
     environment {
         TERRAFORM_DIR_PATH = "${WORKSPACE}/MySQLtool/Mysql-Infra"
         ANSIBLE_PLAY_CR_PATH = "${WORKSPACE}/MySQLtool/Mysql-Rool/Mysql.yml"
