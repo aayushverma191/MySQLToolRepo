@@ -60,7 +60,7 @@ ingress_rule_nacl = {
 
 # Compute Variables
 pub_instance         = "Bastion_host"
-tag_name_ec2         = "mysql"
+tag_name_ec2         = "demo"
 pvt_instance1        = "Database-server1"
 pvt_instance2        = "Database-server2"
 ami_id               = "ami-075449515af5df0d1"
