@@ -10,7 +10,7 @@ mysql_vars:
       Debian:
         mysql_package: 
           - "mysql-server-{{mysql_version}}"
-          # - python3-mysqldb
+          - python3-mysqldb
         mysql_config_file: /etc/mysql/my.cnf
         mysql_service: mysql
       RedHat:
