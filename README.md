@@ -8,4 +8,4 @@
 * Choose the option to delete table.
 
 
-# Note Use Load Balancer in this code because no need to attached LB for direct in DB server if you have deploy application on same server so that use load balancer in same server second thing if you have deploy application on another server that no need to attached LB on DB server , LB attached only application server
+**Note:-** No need to attached LB for direct in DB server if you have deploy application on same server so that use load balancer in same server second thing if you have deploy application on another server that no need to attached LB on DB server , LB attached only application server
