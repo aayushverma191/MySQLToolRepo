@@ -11,7 +11,7 @@
 **Note:-** No need to attached LB for direct in DB server if you have deploy application on same server so that use load balancer in same server second thing if you have deploy application on another server that no need to attached LB on DB server , LB attached only application server
 
 
-## Implement
+## Implementation
 
 * 1. Use t2 medium server and install jenkins, ansible and aws after that configure aws add Access Key and Secret key both user 
 (ubuntu and jenkins) use command **aws configure**.
